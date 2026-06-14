@@ -1,7 +1,7 @@
 # Customer Churn Analysis
-### Business Analyst & Data Analyst Portfolio Project
+### Business Analyst & Product Analyst Portfolio Project
 
-**Domain:** Telecom | CRM Analytics &nbsp;|&nbsp; **Role:** Business Analyst / Data Analyst &nbsp;|&nbsp; **Year:** 2025
+**Domain:** Telecom | CRM Analytics &nbsp;|&nbsp; **Role:** Business Analyst / Product Analyst &nbsp;|&nbsp; **Year:** 2025
 
 **G Yasaswini** &nbsp;|&nbsp; yashaswini2519@gmail.com &nbsp;|&nbsp; [linkedin.com/in/g-yasaswini](https://www.linkedin.com/in/g-yasaswini/)
 
@@ -23,7 +23,7 @@
 
 This project analyses customer churn patterns for a telecom subscription business using Exploratory Data Analysis (EDA), SQL-based querying, and a rule-based risk scoring framework. The objective is to identify high-risk customers and deliver actionable, revenue-focused retention recommendations — without relying on machine learning.
 
-The methodology mirrors the analytical workflow used by Business Analysts and Data Analysts in telecom and subscription industries: moving from raw data to business decision.
+The methodology mirrors the analytical workflow used by Product Analysts and Business Analysts in telecom and subscription industries: moving from raw data to a product decision.
 
 ---
 
@@ -83,6 +83,18 @@ Customer churn directly impacts revenue, customer lifetime value (LTV), and long
 
 ---
 
+## Product Impact
+
+| Finding | Product Decision Enabled |
+|---------|--------------------------|
+| Score-3 customers (10.9% of base) have a 70.5% churn rate | Retention campaign targeting: contact score-3 customers proactively within 30 days of signup — before the churn decision is made |
+| Month-to-month customers churn 15× more than 2-year customers | Feature recommendation: introduce a 6-month contract option with a modest discount as a stepping stone — reduces commitment friction while increasing lock-in |
+| 0–11 month tenure = 48.3% churn rate | Product ops change: trigger an onboarding check-in workflow at Day 7, Day 30, and Day 90 for all new customers |
+| Fiber optic users + high monthly charges = concentrated churn risk | Pricing review: audit fiber plan value perception; consider tiered pricing or a usage-based add-on to close the perceived value gap |
+| $139,131 monthly revenue at risk from churned customers | Budget justification: even a 10% reduction in churn (187 customers) recovers ~$13,900/month — sets the ROI threshold for any retention investment |
+
+---
+
 ## Rule-Based Churn Risk Scoring Model
 
 A transparent, interpretable 3-factor scoring model designed to be understood and actioned by non-technical business stakeholders — no machine learning required.
@@ -112,12 +124,13 @@ A transparent, interpretable 3-factor scoring model designed to be understood an
 
 All data validation, cleaning, and analysis was performed in MySQL Workbench across three structured query files:
 
-- Overall churn rate computation and segment distribution
-- Churn rate by contract type, tenure group, and internet service type
-- Average monthly charges comparison by churn status
-- NULL validation and data integrity checks across all critical fields
-- Rule-based customer segmentation using CASE logic
-- Revenue at risk quantification by risk tier
+| File | Queries |
+|---|---|
+| `datacleaning.sql` | Total record count · NULL checks across 4 critical fields · DELETE for missing customer_id or churn · DISTINCT churn value validation |
+| `churnanalysis.sql` | Overall churn rate with % · Churn rate by contract type · Churn rate by tenure group (6 buckets) · Churn rate by internet service type · Avg monthly charges by churn status · Monthly revenue at risk by risk tier |
+| `risk_segmentation.sql` | Data-driven percentile-based threshold assignment (75th and 40th percentile) · Segment distribution with % of total · Actual churn rate validation per segment |
+
+> Note: `risk_segmentation.sql` uses data-driven percentile thresholds (p75 for high-risk, p40 for medium-risk) rather than hard-coded values, ensuring the segmentation logic remains valid across dataset variations.
 
 ---
 
@@ -145,6 +158,46 @@ An interactive business dashboard built with six components, enabling non-techni
 | Pricing review for fiber optic plans | Fiber optic + high monthly charges segment | Close the perceived value gap driving churn |
 | Proactive support and loyalty benefits | Senior citizens (41.7% churn rate) | Improve retention in an underserved segment |
 | Deploy risk score as onboarding early warning | All new customers from day one | Enable proactive, data-driven intervention |
+
+---
+## Product Impact
+
+### What this analysis enables
+
+The risk scoring model produces an actionable customer tier — not just an insight to report,
+but a trigger for product and CRM workflows. Three specific product decisions it supports:
+
+**1. Automated retention programme enrolment**
+At onboarding (day 1), every new customer receives a Risk Score. Customers scoring 2–3
+are automatically enrolled in a 90-day early retention programme: proactive support
+outreach at day 30, a contract upgrade offer at day 60, and a loyalty discount prompt at
+day 90. This converts the risk score from a reporting output into a real-time CRM trigger.
+
+**2. In-product contract upgrade flow**
+The 42.7% month-to-month churn rate vs 2.8% for 2-year contracts points to a high-value
+product intervention: a contextual "upgrade your plan" flow triggered at months 3–6 for
+month-to-month customers, offering a first-year annual plan discount. The expected impact
+is measurable: if 10% of month-to-month customers convert to annual, the churn rate for
+that cohort should drop from ~43% toward 11%.
+
+**3. Fibre optic product brief**
+Fibre customers pay more AND churn more — a perceived value gap. This finding should
+feed a product brief for the fibre product team: what is the fibre customer expected vs
+received experience, and what feature or service gap is driving the willingness to churn
+despite higher spend?
+
+### How success would be measured
+
+| Metric | Definition | Baseline | Target |
+|---|---|---|---|
+| Retention rate at 90 days | % of Score 2–3 customers still active at day 90 | Establish from data | +10pp vs control |
+| Contract upgrade conversion | % of month-to-month customers converting to annual via the upgrade flow | 0% (no flow exists) | ≥ 10% |
+| Monthly revenue retained | $ monthly charges from customers who would have churned | $0 (no intervention) | Reduce $139k at-risk by 20% in 6 months |
+| Score 3 churn rate | Actual churn rate of critical-risk customers after intervention | 70.5% | Target < 50% |
+
+> **Measurement approach:** Run the retention programme as an A/B test — enrol 50% of
+> Score 2–3 customers in the programme and hold 50% as control. Compare 90-day retention
+> rates between the two groups. This isolates the programme's effect from broader trends.
 
 ---
 
@@ -183,4 +236,4 @@ customer-churn-analysis/
 
 ---
 
-*This portfolio project demonstrates Business Analyst and Data Analyst competencies including exploratory data analysis, SQL querying, rule-based modelling, Power BI dashboarding, and data-driven business recommendations — applicable to BA and DA roles across telecom, fintech, and subscription industries.*
+*This portfolio project demonstrates Product Analyst and Business Analyst competencies: exploratory data analysis, SQL querying, rule-based modelling, Power BI dashboarding, and data-driven product and business recommendations — applicable to PA, BA, and DA roles across telecom, fintech, and subscription industries.*
